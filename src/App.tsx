@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { User } from "./user";
+import MakeNewUser from "./MakeNewUser";
+import "./App.css";
+import ListView from "./ListView";
+import VotingSession from "./VotingSession";
+import { useEffect, useState } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+  const [user, setUser] = useState<null | User>(null);
+
+  useEffect(() => {
+    let savedUser = checkSavedUser();
+    setUser(savedUser);
+  }, []);
+
+  // first make sure we have a user
+  if (!user) {
+    return <MakeNewUser />;
+  }
+
+  const topicId = checkParams("t");
+
+  if (!topicId) {
+    return <ListView user={user} />;
+  }
+
+  return <VotingSession uid={topicId} user={user} />;
+};
+
+const checkParams = (p: string): string | null => {
+  let cUrl = window.location.search;
+  const params = new URLSearchParams(cUrl);
+  return params.get(p);
+};
+
+const checkSavedUser = (): null | User => {
+  const userData = localStorage.getItem("user");
+  if (userData) {
+    const user: User = JSON.parse(userData);
+    return user;
+  } else {
+    return null;
+  }
+};
 
 export default App;
