@@ -21,7 +21,6 @@ const MakeNewUser = () => {
 
   return (
     <div>
-      Hello New User !
       <input
         type="text"
         placeholder="new Name"
@@ -29,7 +28,7 @@ const MakeNewUser = () => {
         onKeyUp={handleKey}
         onChange={(e) => handleChange(e.target.value)}
       />
-      {isUserSaved && <a href="./"> see list</a>}
+      <div>{isUserSaved && <a href="./">go to list</a>}</div>
     </div>
   );
 };

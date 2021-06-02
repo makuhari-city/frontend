@@ -9,6 +9,7 @@ export interface ITopicListItem {
 
 export interface IVoteInfo {
   uid: string;
+  hash: string;
   title: string;
   description: string;
   parent?: string;

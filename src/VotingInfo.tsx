@@ -15,7 +15,8 @@ const VotingInfo = ({ info, user, hash }: VotingInfoProp) => {
   const getOptions = (): { [to: string]: number } => {
     let options: { [to: string]: number } = {};
 
-    if (info.method == "liquid") {
+    if (info.method === "liquid") {
+      // when it's liquid democracy, voters can cast votes to participatants
       let delegates = Object.keys(info.params.voters);
       let combined = delegates.concat(
         Object.values(info.params.voters)
@@ -27,7 +28,9 @@ const VotingInfo = ({ info, user, hash }: VotingInfoProp) => {
         (d) => d !== user.name
       );
       unique.forEach((d) => (options[d] = 0.0));
+
     } else {
+		// when if it's not, we just enumerate the policies
       const policiesDup = Object.values(info.params.voters)
         .map((v) => Object.keys(v))
         .flat();

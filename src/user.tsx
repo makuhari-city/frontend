@@ -5,14 +5,6 @@ export interface User {
   uid: string;
 }
 
-export const getUser = (): User | null => {
-  const data = localStorage.getItem("user");
-  if (data != null) {
-    return JSON.parse(data) as User;
-  }
-  return null;
-};
-
 export const createUser = (name: string): User => {
   return { uid: uuidv4(), name } as User;
 };
@@ -20,4 +12,15 @@ export const createUser = (name: string): User => {
 export const saveUser = (user: User) => {
   localStorage.setItem("user", JSON.stringify(user));
 };
+
+export const checkSavedUser = (): null | User => {
+  const userData = localStorage.getItem("user");
+  if (userData) {
+    const user: User = JSON.parse(userData);
+    return user;
+  } else {
+    return null;
+  }
+};
+
 

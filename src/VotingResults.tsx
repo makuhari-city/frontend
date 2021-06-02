@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { vote, VoteRPCResult } from "./vote";
-import { IVoteInfo, fetchResult, IVoteResult, postResult } from "./database";
+import { vote } from "./vote";
+import { IVoteInfo, fetchResult, postResult } from "./database";
 
 interface VotingResultsProps {
   info: IVoteInfo;
@@ -35,7 +35,7 @@ const VotingResults = ({ info, hash }: VotingResultsProps) => {
     };
 
     checkResult();
-  }, []);
+  }, [hash, info]);
 
   return <pre>{result}</pre>;
 };

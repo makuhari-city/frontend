@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { User, checkSavedUser } from "./user";
 import MakeNewUser from "./MakeNewUser";
 import "./App.css";
 import ListView from "./ListView";
@@ -31,16 +31,6 @@ const checkParams = (p: string): string | null => {
   let cUrl = window.location.search;
   const params = new URLSearchParams(cUrl);
   return params.get(p);
-};
-
-const checkSavedUser = (): null | User => {
-  const userData = localStorage.getItem("user");
-  if (userData) {
-    const user: User = JSON.parse(userData);
-    return user;
-  } else {
-    return null;
-  }
 };
 
 export default App;
