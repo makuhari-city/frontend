@@ -1,12 +1,13 @@
 import { User } from "./user";
 import { ITopicListItem, fetchList } from "./database";
 import { useEffect, useState } from "react";
+import NavBar from "./NavBar";
 
 interface ListViewProps {
-	user:User
+  user: User;
 }
 
-const ListView = ({user}:ListViewProps) => {
+const ListView = ({ user }: ListViewProps) => {
   const [list, setList] = useState<ITopicListItem[]>([]);
 
   useEffect(() => {
@@ -18,18 +19,21 @@ const ListView = ({user}:ListViewProps) => {
   }, []);
 
   return (
-    <div>
-		<p>logged in as: {user.name}({user.uid})</p>
-      <ul>
+    <>
+	<NavBar user={user}/> 
+		<div className="container mx-auto bg-white min-h-1/4">
+		<h1 className="text-2xl p-4">Topic List:</h1>
+      <ul className="list-inside divide-y divide-gray-100">
         {list.map((item) => {
           return (
             <li>
-              <a href={`?t=${item.uid}`}>{item.title}</a>
+				<a className="p-6 flex space-x-4 bg-gray-50 hover:bg-gray-100" href={`?t=${item.uid}`}>{item.title}</a>
             </li>
           );
         })}
       </ul>
-    </div>
+			</div>
+    </>
   );
 };
 

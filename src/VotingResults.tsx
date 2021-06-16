@@ -37,7 +37,7 @@ const VotingResults = ({ info, hash }: VotingResultsProps) => {
     checkResult();
   }, [hash, info]);
 
-  return <pre>{result}</pre>;
+  return <pre className="bg-gray-50 text-sm p-5 rounded m-1">{result}</pre>;
 };
 
 export default VotingResults;

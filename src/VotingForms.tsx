@@ -11,7 +11,7 @@ interface VotingFormsProps {
 const VotingForms = ({ votes, user, uid }: VotingFormsProps) => {
 
   const initialValues = {
-    votes: Object.keys(votes).map((v) => ({ to: v, value: votes[v] })),
+	  votes: Object.keys(votes).map((v) => ({ to: v, value: votes[v], type:"hidden" })),
   };
 
   const handleSubmit = (values: { votes: any[] }) => {
@@ -42,11 +42,10 @@ const VotingForms = ({ votes, user, uid }: VotingFormsProps) => {
                     values.votes.map((vote, index) => (
                       <div className="row" key={index}>
                         <div className="col">
-                          <label htmlFor={`votes.${index}.to`}>To</label>
                           <Field
                             name={`votes.${index}.to`}
                             placeholder="Option"
-                            type="text"
+                            type={vote.type}
                           />
                           <ErrorMessage
                             name={`votes.${index}.to`}
@@ -55,7 +54,7 @@ const VotingForms = ({ votes, user, uid }: VotingFormsProps) => {
                           />
                         </div>
                         <div className="col">
-                          <label htmlFor={`votes.${index}.value`}>Value</label>
+							{vote.type === "hidden" ? <label htmlFor={`votes.${index}.value`}>{vote.to}:</label>: <div></div>}
                           <Field
                             name={`votes.${index}.value`}
                             placeholder="Option"
@@ -74,10 +73,11 @@ const VotingForms = ({ votes, user, uid }: VotingFormsProps) => {
                         </div>
                       </div>
                     ))}
+
                   <button
                     type="button"
                     className="secondary"
-                    onClick={() => push({ to: "", value: "0.0" })}
+					  onClick={() => push({ to: "", value: "0.0", type:"text" })}
                   >
                     Add Option
                   </button>

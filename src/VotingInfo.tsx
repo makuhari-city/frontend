@@ -2,6 +2,7 @@ import { IVoteInfo } from "./database";
 import { User } from "./user";
 import VotingForms from "./VotingForms";
 import VotingResults from "./VotingResults";
+import NavBar from "./NavBar";
 
 interface VotingInfoProp {
   info: IVoteInfo;
@@ -28,9 +29,8 @@ const VotingInfo = ({ info, user, hash }: VotingInfoProp) => {
         (d) => d !== user.name
       );
       unique.forEach((d) => (options[d] = 0.0));
-
     } else {
-		// when if it's not, we just enumerate the policies
+      // when if it's not, we just enumerate the policies
       const policiesDup = Object.values(info.params.voters)
         .map((v) => Object.keys(v))
         .flat();
@@ -48,18 +48,17 @@ const VotingInfo = ({ info, user, hash }: VotingInfoProp) => {
   };
 
   return (
-    <div>
-      <p>
-        logged in as: {user.name}({user.uid})
-      </p>
-      <a href="./">back to list</a>
-      <h1>{info.title}</h1>
-      <p>{info.description}</p>
-      <p>{info.parent || ""}</p>
-      <p>{icon}</p>
-      <VotingForms votes={getOptions()} user={user} uid={info.uid} />
-      <VotingResults info={info} hash={hash} />
-    </div>
+    <>
+      <NavBar user={user} />
+      <div className="container mx-auto">
+        <h1 className="text-4xl font-bold p-2">{info.title}</h1>
+        <h2 className="text-1xl font-semi-bold p-2">{info.description}</h2>
+        <p>{info.parent || ""}</p>
+        <p>{icon}</p>
+        <VotingForms votes={getOptions()} user={user} uid={info.uid} />
+        <VotingResults info={info} hash={hash} />
+      </div>
+    </>
   );
 };
 
