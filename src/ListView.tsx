@@ -2,6 +2,7 @@ import { User } from "./user";
 import { ITopicListItem, fetchList } from "./database";
 import { useEffect, useState } from "react";
 import NavBar from "./NavBar";
+import Canvas from "./Canvas";
 
 interface ListViewProps {
   user: User;
@@ -32,7 +33,8 @@ const ListView = ({ user }: ListViewProps) => {
           );
         })}
       </ul>
-			</div>
+	</div>
+		<Canvas/>
     </>
   );
 };
