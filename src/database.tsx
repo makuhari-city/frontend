@@ -1,5 +1,4 @@
-//const baseUrl = "https://vote.metacity.jp";
-const baseUrl = "http://127.0.0.1:8082";
+const baseUrl = "https://vote.metacity.jp";
 const prefix = "db";
 
 export interface ITopicListItem {

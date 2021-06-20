@@ -1,6 +1,4 @@
-// export const baseUrl = "http://vote.metacity.jp";
-
-export const baseUrl = "http://127.0.0.1:8081";
+export const baseUrl = "https://vote.metacity.jp";
 
 const params: VoteParams = {
   quadratic: true,
