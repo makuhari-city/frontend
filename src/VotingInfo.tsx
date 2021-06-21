@@ -2,7 +2,8 @@ import { IVoteInfo } from "./database";
 import { User } from "./user";
 import VotingForms from "./VotingForms";
 import VotingResults from "./VotingResults";
-import NavBar from "./NavBar";
+import TitleBar from "./TitleBar";
+import Canvas from "./Canvas";
 
 interface VotingInfoProp {
   info: IVoteInfo;
@@ -49,15 +50,22 @@ const VotingInfo = ({ info, user, hash }: VotingInfoProp) => {
 
   return (
     <>
-      <NavBar user={user} />
-      <div className="container mx-auto">
-        <h1 className="text-4xl font-bold p-2">{info.title}</h1>
-        <h2 className="text-1xl font-semi-bold p-2">{info.description}</h2>
-        <p>{info.parent || ""}</p>
-        <p>{icon}</p>
+      <TitleBar />
+      <div className="container max-w-screen-lg mx-auto">
+        <h1 className="font-bold p-2">{info.title}</h1>
+		  <details className="text-sm p-2 mb-4" ><summary className="p-3 bg-nord-0 bg-opacity-10 border border-nord-3 rounded w-3/5">Details</summary>
+			  <p className="bg-nord-0 bg-opacity-90 text-xs p-3 mt-3 rounded w-3/5">
+		  {info.description}
+				  </p>
+		  </details>
+		  <details open className="p-2">
+<summary className="p-3 bg-nord-0 bg-opacity-10 border border-nord-3 rounded w-3/5 text-sm">Votes</summary>
+
         <VotingForms votes={getOptions()} user={user} uid={info.uid} />
+		  </details>
         <VotingResults info={info} hash={hash} />
       </div>
+      <Canvas />
     </>
   );
 };

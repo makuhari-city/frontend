@@ -39,15 +39,13 @@ const int ITER_FRAGMENT = 3;
 
 // Constants that represent physical characteristics of the sea, can and should be changed and 
 //  played with
-const float SEA_HEIGHT = 0.2;
-const float SEA_CHOPPY = 5.0;
+const float SEA_HEIGHT = 0.45;
+const float SEA_CHOPPY = 3.0;
 const float SEA_SPEED = 0.3;
 const float SEA_FREQ = 0.24;
-const vec3 SEA_BASE = vec3(0.2, 0.08, 0.09);
 // const vec3 SEA_BASE = vec3(0.11,0.19,0.22);
-const vec3 SEA_WATER_COLOR = vec3(1.0, 0.03, 0.4);
-// const vec3 SEA_WATER_COLOR = SEA_BASE * vec3(1.8);
-// const vec3 SEA_WATER_COLOR = vec3(0.55,0.9,0.7);
+const vec3 SEA_BASE = vec3(0.1796875, 0.203125, 0.25);
+const vec3 SEA_WATER_COLOR = vec3(0.55,0.9,0.7)*0.6;
 #define SEA_TIME (iTime * SEA_SPEED)
 
 //Matrix to permute the water surface into a complex, realistic form
@@ -451,7 +449,7 @@ void main() {
     
     
     //CaliCoastReplay	 
-    seaColor *= sqrt(sqrt(seaColor)) * 9.0;
+    seaColor *= sqrt(sqrt(seaColor)) * 3.0;
     
     //CaliCoastReplay:  A rather hacky manipulation of the high-value regions in the image that seems
     //to add a subtle charm and "sheen" and foamy effect to high value regions through subtle darkening,

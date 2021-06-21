@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import VotingInfo from "./VotingInfo";
 import { fetchInfo, fetchTag, IVoteInfo } from "./database";
 import { User } from "./user";
-import NavBar from "./NavBar";
+import TitleBar from "./TitleBar";
 
 interface VotingSessionProps {
   uid: string;
@@ -24,13 +24,13 @@ const VotingSession = ({ uid, user }: VotingSessionProps) => {
   }, [uid]);
 
   if (info) {
-    return <VotingInfo info={info} user={user} hash={hash} />;
+    return <VotingInfo info={info} user={user} hash={hash}/>;
   } else {
     return (
       <div>
-        <NavBar user={user} />
-        <div className="container  mx-auto bg-white text-3xl">
-          loading voting information...
+        <TitleBar/>
+        <div className="container mx-auto max-w-screen-lg p-2">
+			Loading Topic (#{uid.substring(0,5)}) information...
         </div>
       </div>
     );
