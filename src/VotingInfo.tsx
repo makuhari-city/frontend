@@ -12,7 +12,6 @@ interface VotingInfoProp {
 }
 
 const VotingInfo = ({ info, user, hash }: VotingInfoProp) => {
-  const icon = info.method === "liquid" ? "🌊" : "💠";
 
   const getOptions = (): { [to: string]: number } => {
     let options: { [to: string]: number } = {};
