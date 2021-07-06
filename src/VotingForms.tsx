@@ -5,10 +5,10 @@ import VotingItem from "./VotingItem";
 interface VotingFormsProps {
   votes: { [to: string]: number };
   user: User;
-  uid: string;
+  id: string;
 }
 
-const VotingForms = ({ votes, user, uid }: VotingFormsProps) => {
+const VotingForms = ({ votes, user, id }: VotingFormsProps) => {
   const initialValues = {
     votes: Object.keys(votes).map((v) => ({
       to: v,
@@ -49,7 +49,7 @@ const VotingForms = ({ votes, user, uid }: VotingFormsProps) => {
     let formatted: { [to: string]: number } = {};
     filtered.forEach((v) => (formatted[v.to] = v.value));
     const update = async () => {
-      await updateVote(uid, user.name, formatted);
+      await updateVote(id, user.uid, user.name, formatted);
       window.location.reload(true);
     };
     update();

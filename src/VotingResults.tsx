@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { vote } from "./vote";
-import { IVoteInfo, fetchResult, postResult } from "./database";
+import { ITopicData, fetchResult, postResult } from "./database";
 
 interface VotingResultsProps {
-  info: IVoteInfo;
+  info: ITopicData;
   hash: string;
 }
 
@@ -13,15 +13,10 @@ const VotingResults = ({ info, hash }: VotingResultsProps) => {
     const checkResult = async () => {
       let res = await fetchResult(hash);
       if (!res) {
-        let calculated = await vote(info.params, info.method, hash);
-        if (calculated.result) {
-          const result = {
-            info_uid: info.uid,
-            info_hash: hash,
-            data: calculated.result,
-          };
+        let result = await vote(info);
+        if (result) {
           setResult(JSON.stringify(result, null, 2));
-          await postResult(result);
+          await postResult(hash, result);
         }
       } else {
         setResult(JSON.stringify(res, null, 2));

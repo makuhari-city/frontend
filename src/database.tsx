@@ -1,58 +1,42 @@
 const baseUrl = "https://vote.metacity.jp";
 const prefix = "db";
 
-export interface ITopicListItem {
-  uid: string;
+export interface ITopicHeader {
+  id: string;
   hash: string;
   title: string;
 }
 
-export interface IVoteInfo {
-  uid: string;
-  hash: string;
+export interface ITopicData {
+  id: string;
   title: string;
   description: string;
-  parent?: string;
-  method: string;
-  params: IVoteParams;
-}
-
-export interface IResultFrac {
-  result: { [to: string]: number };
-}
-
-export interface IResultLiquid {
-  result: [{ [to: string]: number }, { [to: string]: number }];
+  delegates: {[id: string]: string};
+  policies: {[id: string]: string};
+  votes: {[src: string]: {[dest: string]: number}};
 }
 
 export interface IVoteResult {
-  info_uid: string;
-  info_hash: string;
-  data: IResultFrac | IResultLiquid;
+	topic_hash: string,
+	data: any
 }
 
-export interface IVoteParams {
-  is_quadratic?: boolean;
-  is_normalize?: boolean;
-  voters: { [from: string]: { [to: string]: number } };
-}
-
-export const fetchList = async (): Promise<ITopicListItem[]> => {
+export const fetchList = async (): Promise<ITopicHeader[]> => {
   const res = await fetch(`${baseUrl}/${prefix}/list/`);
-  const list: ITopicListItem[] = await res.json();
+  const list: ITopicHeader[] = await res.json();
   return list;
 };
 
-export const fetchTag = async (uid: string): Promise<string> => {
-  const res = await fetch(`${baseUrl}/${prefix}/tag/${uid}/`);
-  const hash: string = await res.json();
-  return hash;
+export const fetchHeader = async (id: string):Promise<ITopicHeader> => {
+	const res = await fetch(`${baseUrl}/${prefix}/header/${id}`);
+	const header: ITopicHeader = await res.json();
+	return header
 };
 
-export const fetchInfo = async (hash: string): Promise<IVoteInfo> => {
-  const res = await fetch(`${baseUrl}/${prefix}/info/${hash}/`);
+export const fetchTopicData = async (id: string): Promise<ITopicData> => {
+  const res = await fetch(`${baseUrl}/${prefix}/topic/${id}/`);
   const info: any = await res.json();
-  return info as IVoteInfo;
+  return info as ITopicData;
 };
 
 export const fetchResult = async (
@@ -61,7 +45,6 @@ export const fetchResult = async (
   const res = await fetch(`${baseUrl}/${prefix}/result/${hash}/`);
   const info: IVoteResult | string = await res.json();
   if (!info) {
-    console.log("hi");
     return null;
   } else {
     console.log(info);
@@ -74,12 +57,13 @@ export const fetchResult = async (
 };
 
 export const postResult = async (
-	voteResult :IVoteResult
+	hash: string,
+	result :any
 ) => {
 
-	const res = await fetch(`${baseUrl}/${prefix}/result/`,{
+	const res = await fetch(`${baseUrl}/${prefix}/result/${hash}/`,{
 		method:"POST",
-		body: JSON.stringify(voteResult),
+		body: JSON.stringify(result),
 		headers:{
 			"Content-Type":"application/json"
 		}
@@ -90,13 +74,19 @@ export const postResult = async (
 }
 
 export const updateVote = async (
-  uid: string,
+  topic_id: string,
+  id: string,
   name: string,
   votes: { [to: string]: number }
 ) => {
-  const res = await fetch(`${baseUrl}/${prefix}/info/${uid}/${name}/`, {
+
+	const vote = {
+		id, name, votes
+	};
+
+  const res = await fetch(`${baseUrl}/${prefix}/topic/update/${topic_id}/delegate/`, {
     method: "POST",
-    body: JSON.stringify(votes),
+    body: JSON.stringify(vote),
     headers: {
       "Content-Type": "application/json",
     },

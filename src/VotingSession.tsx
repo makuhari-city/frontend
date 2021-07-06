@@ -1,27 +1,26 @@
 import { useEffect, useState } from "react";
 import VotingInfo from "./VotingInfo";
-import { fetchInfo, fetchTag, IVoteInfo } from "./database";
+import { fetchTopicData, ITopicData, fetchHeader, ITopicHeader } from "./database";
 import { User } from "./user";
 import TitleBar from "./TitleBar";
 
 interface VotingSessionProps {
-  uid: string;
+  id: string;
   user: User;
 }
 
-const VotingSession = ({ uid, user }: VotingSessionProps) => {
-  const [info, setInfo] = useState<null | IVoteInfo>(null);
+const VotingSession = ({ id, user }: VotingSessionProps) => {
+  const [info, setInfo] = useState<null | ITopicData>(null);
   const [hash, setHash] = useState("");
-
   useEffect(() => {
     const getInfo = async () => {
-      let latestHash = await fetchTag(uid);
-      let latestInfo: IVoteInfo = await fetchInfo(latestHash);
-      setHash(latestHash);
+      let latestInfo: ITopicData = await fetchTopicData(id);
+	  let header: ITopicHeader = await fetchHeader(id);
+	  setHash(header.hash);
       setInfo(latestInfo);
     };
     getInfo();
-  }, [uid]);
+  }, [id]);
 
   if (info) {
     return <VotingInfo info={info} user={user} hash={hash}/>;
@@ -30,7 +29,7 @@ const VotingSession = ({ uid, user }: VotingSessionProps) => {
       <div>
         <TitleBar/>
         <div className="container mx-auto max-w-screen-lg p-2">
-			Loading Topic (#{uid.substring(0,5)}) information...
+			Loading Topic (#{id.substring(0,5)}) information...
         </div>
       </div>
     );
