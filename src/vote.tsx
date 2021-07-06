@@ -5,7 +5,7 @@ export const baseUrl = "https://vote.metacity.jp";
 export const vote = async (topicData: ITopicData) => {
 
   const response = await fetch(`${baseUrl}/rpc/`, {
-    mode: "cors",
+    // mode: "cors",
     method: "POST",
     body: JSON.stringify(topicData),
     headers: {
