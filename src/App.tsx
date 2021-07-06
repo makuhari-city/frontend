@@ -24,7 +24,7 @@ const App = () => {
     return <ListView user={user} />;
   }
 
-  return <VotingSession uid={topicId} user={user} />;
+  return <VotingSession id={topicId} user={user} />;
 };
 
 const checkParams = (p: string): string | null => {

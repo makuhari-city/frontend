@@ -1,5 +1,5 @@
 import { User } from "./user";
-import { ITopicListItem, fetchList } from "./database";
+import { ITopicHeader, fetchList } from "./database";
 import { useEffect, useState } from "react";
 import TitleBar from "./TitleBar";
 import Canvas from "./Canvas";
@@ -9,7 +9,7 @@ interface ListViewProps {
 }
 
 const ListView = ({ user }: ListViewProps) => {
-  const [list, setList] = useState<ITopicListItem[]>([]);
+  const [list, setList] = useState<ITopicHeader[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isEmpty, setIsEmpty] = useState(true);
 
@@ -25,7 +25,7 @@ const ListView = ({ user }: ListViewProps) => {
     getList();
   }, []);
 
-  const renderList = (items: ITopicListItem[]) => (
+  const renderList = (items: ITopicHeader[]) => (
       <div>
         <h1 className="px-4 text-bold">topics:</h1>
         <ul className="p-4 w-3/5">
@@ -33,7 +33,7 @@ const ListView = ({ user }: ListViewProps) => {
             <li className="mb-1">
               <a
                 className="duration-500 ease-out p-4 flex space-x-4 bg-nord-1 hover:bg-nord-2"
-                href={`?t=${item.uid}`}
+                href={`?t=${item.id}`}
               >
                 {item.title}
               </a>
