@@ -3,7 +3,7 @@ import { User } from "./user";
 import VotingForms from "./VotingForms";
 import VotingResults from "./VotingResults";
 import TitleBar from "./TitleBar";
-import Canvas from "./Canvas";
+// import Canvas from "./Canvas";
 
 interface VotingInfoProp {
   info: ITopicData;
@@ -56,7 +56,7 @@ const VotingInfo = ({ info, user, hash }: VotingInfoProp) => {
         </details>
         <VotingResults info={info} hash={hash} />
       </div>
-      <Canvas />
+		{/*<Canvas />*/}
     </>
   );
 };

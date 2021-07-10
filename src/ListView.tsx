@@ -2,7 +2,7 @@ import { User } from "./user";
 import { ITopicHeader, fetchList } from "./database";
 import { useEffect, useState } from "react";
 import TitleBar from "./TitleBar";
-import Canvas from "./Canvas";
+// import Canvas from "./Canvas";
 
 interface ListViewProps {
   user: User;
@@ -56,7 +56,7 @@ const ListView = ({ user }: ListViewProps) => {
         ))}
         
       </div>
-      <Canvas />
+		{/*<Canvas />*/}
     </>
   );
 };

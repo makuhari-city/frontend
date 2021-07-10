@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createUser, saveUser, User } from "./user";
 import TitleBar from "./TitleBar";
-import Canvas from "./Canvas";
+// import Canvas from "./Canvas";
 
 const MakeNewUser = () => {
   const [newUser, setNewUser] = useState<undefined | User>();
@@ -74,7 +74,7 @@ const MakeNewUser = () => {
           </div>
         )}
       </div>
-      <Canvas />
+		{/*<Canvas />*/}
     </>
   );
 };
