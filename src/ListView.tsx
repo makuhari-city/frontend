@@ -1,14 +1,11 @@
-import { User } from "./user";
+import { checkSavedUser, User } from "./user";
 import { ITopicHeader, fetchList } from "./database";
 import { useEffect, useState } from "react";
 import TitleBar from "./TitleBar";
+import { RouteComponentProps, Redirect, Link } from "@reach/router";
 // import Canvas from "./Canvas";
 
-interface ListViewProps {
-  user: User;
-}
-
-const ListView = ({ user }: ListViewProps) => {
+const ListView = (props: RouteComponentProps) => {
   const [list, setList] = useState<ITopicHeader[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isEmpty, setIsEmpty] = useState(true);
@@ -31,12 +28,12 @@ const ListView = ({ user }: ListViewProps) => {
         <ul className="p-4 w-3/5">
           {items.map((item) => (
             <li className="mb-1">
-              <a
+              <Link 
                 className="duration-500 ease-out p-4 flex space-x-4 bg-nord-1 hover:bg-nord-2"
-                href={`?t=${item.id}`}
+                to={`../topic/${item.id}/`}
               >
                 {item.title}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

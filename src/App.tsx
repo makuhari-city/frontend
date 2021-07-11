@@ -1,36 +1,15 @@
-import { User, checkSavedUser } from "./user";
-import MakeNewUser from "./MakeNewUser";
-import "./App.css";
+import { Router } from "@reach/router";
+import Main from "./Main";
 import ListView from "./ListView";
-import VotingSession from "./VotingSession";
-import { useEffect, useState } from "react";
+import Topic from "./Topic";
 
 const App = () => {
-  const [user, setUser] = useState<null | User>(null);
-
-  useEffect(() => {
-    let savedUser = checkSavedUser();
-    setUser(savedUser);
-  }, []);
-
-  // first make sure we have a user
-  if (!user) {
-    return <MakeNewUser />;
-  }
-
-  const topicId = checkParams("t");
-
-  if (!topicId) {
-    return <ListView user={user} />;
-  }
-
-  return <VotingSession id={topicId} user={user} />;
+  return (
+    <Router>
+      <Main path="frontend" />
+      <ListView path="frontend/list" />
+      <Topic path="frontend/topic/:topicId" />
+    </Router>
+  );
 };
-
-const checkParams = (p: string): string | null => {
-  let cUrl = window.location.search;
-  const params = new URLSearchParams(cUrl);
-  return params.get(p);
-};
-
 export default App;
