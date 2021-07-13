@@ -3,6 +3,7 @@ import { User } from "./user";
 import VotingForms from "./VotingForms";
 import VotingResults from "./VotingResults";
 import TitleBar from "./TitleBar";
+import { Link } from "@reach/router";
 // import Canvas from "./Canvas";
 
 interface VotingInfoProp {
@@ -24,7 +25,7 @@ const VotingInfo = ({ info, user, hash }: VotingInfoProp) => {
       Object.keys(userVotes).forEach((to) => (options[to] = userVotes[to]));
     }
 
-	delete options[user.uid];
+    delete options[user.uid];
 
     return options;
   };
@@ -33,15 +34,18 @@ const VotingInfo = ({ info, user, hash }: VotingInfoProp) => {
     <>
       <TitleBar />
       <div className="container max-w-screen-lg mx-auto">
-        <h1 className="font-bold p-2">{info.title}</h1>
-        <details className="text-sm p-2 mb-4">
-          <summary className="p-3 bg-nord-0 bg-opacity-10 border border-nord-3 rounded w-3/5">
-            Details
-          </summary>
+        <div className="flex w-3/5 p-2">
+          <h1 className="flex-none font-bold">{info.title}</h1>
+			<div className="flex-grow"></div>
+          <div className="flex-none">
+            <Link to="edit" className="hover:underline text-xs">
+              edit
+            </Link>
+          </div>
+        </div>
           <p className="bg-nord-0 bg-opacity-90 text-xs p-3 mt-3 rounded w-3/5">
             {info.description}
           </p>
-        </details>
         <details open className="p-2">
           <summary className="p-3 bg-nord-0 bg-opacity-10 border border-nord-3 rounded w-3/5 text-sm">
             Votes
@@ -56,7 +60,7 @@ const VotingInfo = ({ info, user, hash }: VotingInfoProp) => {
         </details>
         <VotingResults info={info} hash={hash} />
       </div>
-		{/*<Canvas />*/}
+      {/*<Canvas />*/}
     </>
   );
 };

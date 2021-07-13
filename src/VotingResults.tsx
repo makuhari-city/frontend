@@ -20,7 +20,7 @@ interface IResult {
 }
 
 const VotingResults = ({ info, hash }: VotingResultsProps) => {
-	let [result, setResult] = useState<IResult | null | string>(null);
+  let [result, setResult] = useState<IResult | null | string>(null);
   useEffect(() => {
     const checkResult = async () => {
       // get the latest header;
@@ -46,8 +46,30 @@ const VotingResults = ({ info, hash }: VotingResultsProps) => {
     checkResult();
   }, [hash, info]);
 
+  const updateResult = () => {
+    const update = async () => {
+      const header = await fetchHeader(info.id);
+      if (header.id !== hash) {
+        const fetched = await fetchResult(header.hash);
+
+        if (fetched.status === "error") {
+          setResult(
+            "result not found in database. sending calculation result to `vote`."
+          );
+          let latest = await fetchTopicData(header.id);
+          let calculated = await vote(latest);
+
+          setResult(JSON.stringify(calculated, null, 2));
+        } else {
+          setResult(JSON.stringify(fetched, null, 2));
+        }
+      }
+    };
+    update();
+  };
+
   const renderResult = (result: IResult, info: ITopicData) => {
-	  if(!result || result.borda === undefined) return;
+    if (!result || result.borda === undefined) return;
 
     const borda_order = result.borda
       .map((item) => info.policies[item[0]])
@@ -78,11 +100,14 @@ const VotingResults = ({ info, hash }: VotingResultsProps) => {
         <summary className="p-3 bg-nord-0 bg-opacity-10 border border-nord-3 rounded w-3/5">
           Results
         </summary>
-		  {renderResult(result as IResult, info)}
+        {renderResult(result as IResult, info)}
         <pre className="bg-nord-0 bg-opacity-90 text-xs p-3 mt-3 rounded w-3/5">
           {result}
         </pre>
-        <button className="mt-3 mb-8 p-2 rounded border bg-nord-9 font-bold text-nord-0 hover:bg-nord-10 bg-opacity-80 duration-500 ease-in">
+        <button
+          className="mt-3 mb-8 p-2 rounded border bg-nord-9 font-bold text-nord-0 hover:bg-nord-10 bg-opacity-80 duration-500 ease-in"
+          onClick={updateResult}
+        >
           Update
         </button>
       </details>

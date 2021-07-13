@@ -44,6 +44,49 @@ export const fetchResult = async (hash: string): Promise<any | null> => {
   }
 };
 
+interface IPartialTopic {
+  title: string;
+  description: string;
+}
+
+interface INewTopicResponse {
+  status: string;
+  id: string;
+  hash: string;
+}
+
+export const postNewTopic = async (
+  title: string,
+  description: string
+): Promise<INewTopicResponse> => {
+  const partial: IPartialTopic = { title, description };
+  const res = await fetch(`${baseUrl}/${prefix}/topic/new/`, {
+    method: "POST",
+    body: JSON.stringify(partial),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const result: INewTopicResponse = await res.json();
+  console.log(result);
+
+  return result;
+};
+
+export const postTopic = async (topic: ITopicData) => {
+  const res = await fetch(`${baseUrl}/${prefix}/topic/raw/`, {
+    method: "POST",
+    body: JSON.stringify(topic),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const result: { [f: string]: string } = await res.json();
+  return result;
+};
+
 export const postResult = async (hash: string, result: any) => {
   const res = await fetch(`${baseUrl}/${prefix}/result/${hash}/`, {
     method: "POST",
