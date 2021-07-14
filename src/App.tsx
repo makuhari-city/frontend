@@ -4,7 +4,7 @@ import ListView from "./ListView";
 import Topic from "./Topic";
 import CreateTopic from "./CreateTopic";
 import EditTopic from "./EditTopic";
-import TakeUuid from "./TakeUuid";
+// import TakeUuid from "./TakeUuid";
 
 const App = () => {
   return (
@@ -14,7 +14,7 @@ const App = () => {
       <Topic path="app/topic/:topicId" />
       <CreateTopic path="app/topic/create" />
 	  <EditTopic path="app/topic/:topicId/edit" />
-	  <TakeUuid path="app/user/:topicId/take" />
+		{/*<TakeUuid path="app/user/:topicId/take" />*/}
     </Router>
   );
 };
