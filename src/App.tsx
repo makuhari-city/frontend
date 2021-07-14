@@ -4,15 +4,17 @@ import ListView from "./ListView";
 import Topic from "./Topic";
 import CreateTopic from "./CreateTopic";
 import EditTopic from "./EditTopic";
+import TakeUuid from "./TakeUuid";
 
 const App = () => {
   return (
-    <Router basepath="app">
-      <Main path="/" />
-      <ListView path="list" />
-      <Topic path="topic/:topicId" />
-      <CreateTopic path="topic/create" />
-	  <EditTopic path="topic/:topicId/edit" />
+    <Router>
+      <Main path="app/" />
+      <ListView path="app/list" />
+      <Topic path="app/topic/:topicId" />
+      <CreateTopic path="app/topic/create" />
+	  <EditTopic path="app/topic/:topicId/edit" />
+	  <TakeUuid path="app/user/:topicId/take" />
     </Router>
   );
 };

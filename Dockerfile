@@ -6,4 +6,4 @@ COPY . ./
 RUN yarn build
 RUN yarn cache clean
 EXPOSE 3000
-CMD ["yarn", "serve"]
+CMD ["node", "server.js"]

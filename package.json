@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://vote.metacity.jp/app",
+  "homepage": "https://vote.metacity.jp/app/",
   "dependencies": {
     "@craco/craco": "^6.1.2",
     "@reach/router": "^1.3.4",
