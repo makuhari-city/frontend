@@ -21,7 +21,7 @@ const Main = (props: RouteComponentProps) => {
   const topicId = checkParams("t");
 
   if (!topicId) {
-    return <Redirect to="/frontend/list/" noThrow/>;
+    return <Redirect to="/app/list/" noThrow/>;
   }
 
   return <VotingSession id={topicId} user={user} />;

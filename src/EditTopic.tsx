@@ -82,7 +82,7 @@ const EditTopic = (props: EditTopicProps) => {
   };
 
   if (!props.topicId) {
-    return <Redirect to="/frontend/list/" noThrow />;
+    return <Redirect to="/app/list/" noThrow />;
   } else {
     return (
       <>

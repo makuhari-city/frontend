@@ -44,7 +44,7 @@ const CreateTopic = (props: RouteComponentProps) => {
       postTopic(title, description);
 	  setTitle("");
 	  setDesc("");
-	  const url = `/frontend/topic/${id}`;
+	  const url = `/app/topic/${id}`;
 	  return <Redirect to={url}/>
 	}
   };

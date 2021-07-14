@@ -7,12 +7,12 @@ import EditTopic from "./EditTopic";
 
 const App = () => {
   return (
-    <Router>
-      <Main path="frontend" />
-      <ListView path="frontend/list" />
-      <Topic path="frontend/topic/:topicId" />
-      <CreateTopic path="frontend/topic/create" />
-	  <EditTopic path="frontend/topic/:topicId/edit" />
+    <Router basepath="app">
+      <Main path="/" />
+      <ListView path="list" />
+      <Topic path="topic/:topicId" />
+      <CreateTopic path="topic/create" />
+	  <EditTopic path="topic/:topicId/edit" />
     </Router>
   );
 };
