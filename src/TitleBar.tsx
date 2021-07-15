@@ -10,7 +10,7 @@ const TitleBar = ({ user }: TitleBarProps) => (
     <nav className="container mt-32 mb-32 max-w-screen-lg mx-auto">
 {user ? (
       <div className="text-xs mb-2">
-		  logged in as: {user.name} ({user.uid.substring(0, 6)})
+		  logged in as: {user.name} ({user.uid.substring(0, 6)}) <Link to={`/app/user/${user.uid}/take`} className="underline text-nord-7">change</Link>
       </div>
     ) : (
       ""
