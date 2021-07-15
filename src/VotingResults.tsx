@@ -98,7 +98,7 @@ const VotingResults = ({ info, hash }: VotingResultsProps) => {
     <>
       <details className="text-sm p-2 mt-4">
         <summary className="p-3 bg-nord-0 bg-opacity-10 border border-nord-3 rounded w-3/5">
-          Results
+          計算結果データ
         </summary>
         {renderResult(result as IResult, info)}
         <pre className="bg-nord-0 bg-opacity-90 text-xs p-3 mt-3 rounded w-3/5">

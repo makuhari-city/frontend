@@ -22,11 +22,22 @@ const VotingForms = ({
   const [didVote, setDidVote] = useState(false);
   const [label, setLabel] = useState("投票する");
 
-  const getString = (uuid: string): string => {
+  const getString = (uuid: string) => {
     return Object.keys(info.delegates).includes(uuid)
-      ? info.delegates[uuid]
+      ? try_twitter(info.delegates[uuid])
       : info.policies[uuid];
   };
+
+  const try_twitter = (label: string) => {
+	  console.log(label);
+	  if(label.trim().startsWith('@')){
+		  let username = label.trim().substring(1);
+		  let link = `https://twitter.com/${username}`;
+			  return (<a href={link} className="text-nord-9 underline">{username}</a>)
+	  } else {
+		  return label
+	  }
+  }
 
   const handleChange = (uuid: string) => {
     const handeChangeUuid = (e: React.ChangeEvent<HTMLInputElement>) => {

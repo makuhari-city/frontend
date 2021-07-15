@@ -1,8 +1,10 @@
 import { RouteComponentProps } from "@reach/router";
 import TitleBar from "./TitleBar";
+import { checkSavedUser } from "./user";
 import { useState } from "react";
 import { postNewTopic } from "./database";
 import { Redirect } from "@reach/router";
+import "./EditTopic.css";
 
 const CreateTopic = (props: RouteComponentProps) => {
   const [title, setTitle] = useState("");
@@ -35,23 +37,33 @@ const CreateTopic = (props: RouteComponentProps) => {
 
     setError(mes);
 
-	const postTopic = async (title: string, description: string) => {
+    const postTopic = async (title: string, description: string) => {
       const res = await postNewTopic(title, description);
-	  setId(res.id);
+      setId(res.id);
     };
 
     if (mes === "") {
-      postTopic(title, description);
-	  setTitle("");
-	  setDesc("");
-	  const url = `/app/topic/${id}`;
-	  return <Redirect to={url}/>
-	}
+      postTopic(title.trim(), description);
+      setTitle("");
+      setDesc("");
+      const url = `/app/topic/${id}`;
+      return <Redirect to={url} />;
+    }
+  };
+
+  const UserBar = () => {
+    let user = checkSavedUser();
+
+    if (user) {
+      return <TitleBar user={user} />;
+    } else {
+      return <TitleBar />;
+    }
   };
 
   return (
     <>
-      <TitleBar />
+      {UserBar()}
       <div className="container max-w-screen-lg mx-auto">
         <h1 className="p-2"> create topic </h1>
         <div className="w-3/5 p-2">

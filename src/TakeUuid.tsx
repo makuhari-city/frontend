@@ -12,23 +12,27 @@ const TakeUuid = (props: TakeUuidProps) => {
   const [isSet, setIsSet] = useState(false);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value.trim());
+    setName(e.target.value);
   };
 
   const changeUser = () => {
     if (name !== "" && props.Uuid) {
-      const user: User = { uid: props.Uuid!, name };
+      const user: User = { uid: props.Uuid!, name: name.trim() };
       saveUser(user);
       console.log(`set user ${user.uid.substring(0, 5)}, name:${user.name}`);
       setName("");
-	  setIsSet(true);
+      setIsSet(true);
     }
   };
 
   const backButton = () => {
-	  if(isSet) {
-		  return(<Link to="/app/list/" className="hover:underline">リストに戻る</Link>)
-	  }
+    if (isSet) {
+      return (
+        <Link to="/app/list/" className="hover:underline">
+          リストに戻る
+        </Link>
+      );
+    }
   };
 
   if (!props.Uuid) {
@@ -51,11 +55,16 @@ const TakeUuid = (props: TakeUuidProps) => {
             className="m-2 p-3 rounded font-bold text-nord-0"
           />
           <div className="p-2 text-xs pb-5">
-            他の人があなたに委任する時に特定しやすい名前であれば、本名である必要はありません。計算時にお名前の紐付けはしていません。
+            他の人があなたに委任する時に特定しやすい名前であれば、本名である必要はありません。計算時にお名前の紐付けはしていません。@を先頭につけると、twitterのプロフィールリンクに置き換わります。
           </div>
 
-			<button onClick={changeUser} className="font-bold px-2 py-2 m-2 bg-nord-1 rounded hover:bg-nord-3">set user</button>
-			{backButton()}
+          <button
+            onClick={changeUser}
+            className="font-bold px-2 py-2 m-2 bg-nord-1 rounded hover:bg-nord-3"
+          >
+            set user
+          </button>
+          {backButton()}
         </div>
       </div>
     </>

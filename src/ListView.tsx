@@ -16,7 +16,10 @@ const ListView = (props: RouteComponentProps) => {
       setIsLoading(false);
       if (newList.length > 0) {
         setIsEmpty(false);
-        setList(newList);
+
+        const sorted = newList.sort((a, b) => a.title.localeCompare(b.title));
+
+        setList(sorted);
       }
     };
     getList();
@@ -40,12 +43,21 @@ const ListView = (props: RouteComponentProps) => {
     </div>
   );
 
+  const userBar = () => {
+    const user = checkSavedUser();
+    if (user) {
+      return <TitleBar user={user} />;
+    } else {
+      return <TitleBar />;
+    }
+  };
+
   return (
     <>
-      <TitleBar />
+      {userBar()}
       <div className="container max-w-screen-lg py-8 mx-auto bg-nord-0 bg-opacity-90 min-h-1/4 rounded">
         <div className="p-3">
-          <p className="w-3/5 text-xs mb-5">
+          <p className="w-3/5 text-sm mb-5">
             多層都市「幕張市」プロジェクトは、分散型統治を検証していくために税金やクラウドファンディング、寄付などで集まった全予算を本プロジェクトに参加する人（=「幕張市」市民）たちの投票で最終決定していきます。
             仮にあなたも市民だった場合、どの政策に投票しますか？この投票結果は、多層都市「幕張市」の方針に強く影響をあたえる可能性（そのまま採用される可能性）があります。
           </p>

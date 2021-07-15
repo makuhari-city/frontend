@@ -27,7 +27,7 @@ const VotingSession = ({ id, user }: VotingSessionProps) => {
   } else {
     return (
       <div>
-        <TitleBar/>
+        <TitleBar user={user}/>
         <div className="container mx-auto max-w-screen-lg p-2">
 			Loading Topic (#{id.substring(0,5)}) information...
         </div>

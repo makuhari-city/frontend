@@ -40,7 +40,7 @@ const Topic = (props: TopicProps) => {
   } else {
     return (
       <div>
-        <TitleBar />
+        <TitleBar user={user}/>
         <div className="container mx-auto max-w-screen-lg p-2">
           Loading Topic (#{props.topicId!.substring(0, 5)}) information...
         </div>
