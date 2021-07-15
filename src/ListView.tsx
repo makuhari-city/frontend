@@ -9,6 +9,7 @@ const ListView = (props: RouteComponentProps) => {
   const [list, setList] = useState<ITopicHeader[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isEmpty, setIsEmpty] = useState(true);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const getList = async () => {
@@ -22,6 +23,10 @@ const ListView = (props: RouteComponentProps) => {
         setList(sorted);
       }
     };
+
+    const u = checkSavedUser();
+    setUser(u);
+
     getList();
   }, []);
 
@@ -52,9 +57,13 @@ const ListView = (props: RouteComponentProps) => {
     }
   };
 
+  if (user === null) {
+    return <Redirect to="/app" />;
+  }
+
   return (
     <>
-      {userBar()}
+      <TitleBar user={user} />
       <div className="container max-w-screen-lg py-8 mx-auto bg-nord-0 bg-opacity-90 min-h-1/4 rounded">
         <div className="p-3">
           <p className="w-3/5 text-sm mb-5">

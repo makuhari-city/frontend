@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import VotingInfo from "./VotingInfo";
-import { fetchTopicData, ITopicData, fetchHeader, ITopicHeader } from "./database";
+import {
+  fetchTopicData,
+  ITopicData,
+  fetchHeader,
+  ITopicHeader,
+} from "./database";
 import { User } from "./user";
 import TitleBar from "./TitleBar";
 
@@ -15,21 +20,21 @@ const VotingSession = ({ id, user }: VotingSessionProps) => {
   useEffect(() => {
     const getInfo = async () => {
       let latestInfo: ITopicData = await fetchTopicData(id);
-	  let header: ITopicHeader = await fetchHeader(id);
-	  setHash(header.hash);
+      let header: ITopicHeader = await fetchHeader(id);
+      setHash(header.hash);
       setInfo(latestInfo);
     };
     getInfo();
   }, [id]);
 
   if (info) {
-    return <VotingInfo info={info} user={user} hash={hash}/>;
+    return <VotingInfo info={info} user={user} hash={hash} />;
   } else {
     return (
       <div>
-        <TitleBar user={user}/>
+        <TitleBar user={user} />
         <div className="container mx-auto max-w-screen-lg p-2">
-			Loading Topic (#{id.substring(0,5)}) information...
+          Loading Topic (#{id.substring(0, 5)}) information...
         </div>
       </div>
     );
