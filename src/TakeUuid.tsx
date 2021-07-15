@@ -40,18 +40,18 @@ const TakeUuid = (props: TakeUuidProps) => {
       <TitleBar />
       <div className="container max-w-screen-lg mx-auto">
         <div className="w-3/5">
-          <h1 className="p-2">ユーザー名設定</h1>
+          <h1 className="p-2">幕張市 氏名登録</h1>
           <div className="p-2 text-xs py-2">
             setting user name for id:{props.Uuid!.substring(0, 6)}
           </div>
           <input
             onChange={handleNameChange}
             value={name}
-            placeholder="お名前"
+            placeholder="幕張 花子"
             className="m-2 p-3 rounded font-bold text-nord-0"
           />
           <div className="p-2 text-xs pb-5">
-            本名である必要はありませんが、他の人があなたに委任する時に特定しやすい名前にしてください。投票集約計算時は名前は紐付けされていません。
+            他の人があなたに委任する時に特定しやすい名前であれば、本名である必要はありません。計算時にお名前の紐付けはしていません。
           </div>
 
 			<button onClick={changeUser} className="font-bold px-2 py-2 m-2 bg-nord-1 rounded hover:bg-nord-3">set user</button>
