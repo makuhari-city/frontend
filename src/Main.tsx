@@ -20,7 +20,7 @@ const Main = (props: RouteComponentProps) => {
 
   const topicId = checkParams("t");
 
-  if (!topicId || !user) {
+  if (!topicId) {
     return <Redirect to="/app/list/" noThrow/>;
   }
 

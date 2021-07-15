@@ -57,13 +57,9 @@ const ListView = (props: RouteComponentProps) => {
     }
   };
 
-  if (user === null) {
-    return <Redirect to="/app" />;
-  }
-
   return (
     <>
-      <TitleBar user={user} />
+      {userBar()}
       <div className="container max-w-screen-lg py-8 mx-auto bg-nord-0 bg-opacity-90 min-h-1/4 rounded">
         <div className="p-3">
           <p className="w-3/5 text-sm mb-5">
