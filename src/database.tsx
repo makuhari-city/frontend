@@ -44,6 +44,51 @@ export const fetchResult = async (hash: string): Promise<any | null> => {
   }
 };
 
+export const fetchRepList = async (): Promise<string[]> => {
+  const res = await fetch(`${baseUrl}/${prefix}/reps/`);
+  const list: string[] = await res.json();
+
+  if (!list) {
+    return [];
+  } else {
+    return list;
+  }
+};
+
+export interface IRepresentative {
+  name: string;
+  info?: string;
+  link?: string;
+}
+
+export const fetchRep = async (id: string): Promise<IRepresentative | null> => {
+  const res = await fetch(`${baseUrl}/${prefix}/rep/${id}/`);
+  const rep: IRepresentative = await res.json();
+
+  if (!rep) {
+    return null;
+  } else {
+    return rep;
+  }
+};
+
+export const fetchRepAll = async (): Promise<{[id:string]:IRepresentative}> => {
+  const list = await fetchRepList();
+
+  let result: {[id:string]:IRepresentative} = {};
+
+  let reps: [string, (IRepresentative|null)][]= (await Promise.all(list.map(id=> fetchRep(id)))).map((r,i)=> [list[i],r]);
+
+  // filter the null ones;
+  reps.forEach(r => {
+	  if(r[1]!==null) {
+		  result[r[0]] = r[1] as IRepresentative;
+	  }
+  })
+
+  return result;
+};
+
 interface IPartialTopic {
   title: string;
   description: string;
