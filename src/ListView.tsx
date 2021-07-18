@@ -32,12 +32,12 @@ const ListView = (props: RouteComponentProps) => {
 
   const renderList = (items: ITopicHeader[]) => (
     <div>
-      <h1 className="text-bold">トピックス:</h1>
-      <ul className="p-3 w-3/5">
+      <h1>議題:</h1>
+      <ul className="max-w-screen-md my-3">
         {items.map((item) => (
-          <li className="mb-1">
+          <li className="mb-2">
             <Link
-              className="duration-500 ease-out p-4 flex space-x-4 bg-nord-1 hover:bg-nord-2"
+              className="duration-500 ease-out p-3 flex bg-nord-1 hover:bg-nord-2 rounded"
               to={`../topic/${item.id}/`}
             >
               {item.title}
@@ -58,25 +58,23 @@ const ListView = (props: RouteComponentProps) => {
   };
 
   return (
-    <>
+	  <div className="lg:container mx-auto px-4 max-w-screen-md">
       {userBar()}
-      <div className="container max-w-screen-lg py-8 mx-auto bg-nord-0 bg-opacity-90 min-h-1/4 rounded">
-        <div className="p-3">
-          <p className="w-3/5 text-sm mb-5">
+      <div>
+		  <p className="max-w-prose mb-5 text-sm md:text-base">
             多層都市「幕張市」プロジェクトは、分散型統治を検証していくために税金やクラウドファンディング、寄付などで集まった全予算を本プロジェクトに参加する人（=「幕張市」市民）たちの投票で最終決定していきます。
             仮にあなたも市民だった場合、どの政策に投票しますか？この投票結果は、多層都市「幕張市」の方針に強く影響をあたえる可能性（そのまま採用される可能性）があります。
           </p>
-        </div>
         {isLoading ? (
-          <div className="p-3">Loading topics...</div>
+          <div className="py-3">Loading topics...</div>
         ) : isEmpty ? (
-          <div className="p-3">0 topics. Nothing to vote.</div>
+          <div className="py-3">0 topics. Nothing to vote.</div>
         ) : (
           renderList(list)
         )}
       </div>
       {/*<Canvas />*/}
-    </>
+    </div>
   );
 };
 

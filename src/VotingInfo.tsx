@@ -2,7 +2,6 @@ import { ITopicData } from "./database";
 import { User } from "./user";
 import VotingForms from "./VotingForms";
 import VotingResults from "./VotingResults";
-import TitleBar from "./TitleBar";
 import { Link } from "@reach/router";
 import ReactMarkdown from "react-markdown";
 
@@ -13,11 +12,11 @@ interface VotingInfoProp {
 }
 
 const rule_details = (
-  <div className="w-3/5 text-sm p-3">
-    <div className="pb-3 leading-5">
-      民主主義の基本的な要素である投票において、さまざまな「票の数え方」があることが知られています。このルール群の事を集約ルールといい、ルールが変わることで同じ投票でも結果が変わることがあります。
-      多世界投票システム New Rousseau
-      Machineでは複数の集約ルールによって結果が変わること示し、それによって実現する複数の世界の可能態を表す作品です。
+  <div className="max-w-prose text-sm">
+    <div className="pb-3 leading-6">
+      民主主義の基本的な要素である投票において、さまざまな「票の数え方」があることが知られています。票の数え方を「集約ルール」といい、これが変わることで同じ投票でも結果が変わることがあります。
+      多世界投票システム 「New Rousseau
+      Machine」では複数の集約ルールによって結果が変わること示し、それによって実現する複数の世界の可能態を表す作品です。
     </div>
 
     <div className="pb-2">作品にあたり以下のルールが使われています:</div>
@@ -55,8 +54,6 @@ const VotingInfo = ({ info, user, hash }: VotingInfoProp) => {
   const getOptions = (): { [to: string]: number } => {
     let options: { [to: string]: number } = {};
 
-    console.log(info);
-
     Object.keys(info.policies).forEach((to) => (options[to] = 0.0));
     Object.keys(info.delegates).forEach((to) => (options[to] = 0.0));
 
@@ -72,39 +69,33 @@ const VotingInfo = ({ info, user, hash }: VotingInfoProp) => {
   };
 
   return (
-    <>
-      <TitleBar user={user} />
-      <div className="container max-w-screen-lg mx-auto">
-        <div className="flex w-3/5 p-2">
-          <h1 className="flex-none font-bold">{info.title}</h1>
-          <div className="flex-grow"></div>
-          <div className="flex-none">
-            <Link to="edit" className="hover:underline text-xs">
-              edit
-            </Link>
-          </div>
+    <div className="flex max-w-screen-md flex-col">
+      <div className="flex">
+        <h1 className="flex-none text-xl font-bold mb-16 underline">
+          {info.title}
+        </h1>
+        <div className="flex-grow"></div>
+        <div className="flex-none">
+          <Link to="edit" className="hover:underline text-xs">
+            edit
+          </Link>
         </div>
-        <p className="bg-nord-0 bg-opacity-90 text-sm p-3 mt-3 rounded w-3/5">
-          <ReactMarkdown className="description">
-            {info.description}
-          </ReactMarkdown>
-        </p>
+      </div>
 
-        <details open className="p-2">
-          <summary className="p-3 bg-nord-0 bg-opacity-10 border border-nord-3 rounded w-3/5 text-sm">
+      <div className="px-3">
+        <ReactMarkdown className="my-4 text-sm md:text-base max-w-prose description">
+          {info.description}
+        </ReactMarkdown>
+
+        <details open>
+          <summary className="p-3 bg-nord-0 bg-opacity-10 border border-nord-3 rounded text-sm">
             投票
           </summary>
 
-          <div className="w-3/5 text-sm pl-8 pt-3">
-            <ul className="list-disc list-inside text-xs">
+          <div className="p-2">
+            <ul className="list-disc list-inside text-xs mt-2 pt-3 px-16 bg-nord-1 bg-opacity-50 text-nord-11 rounded">
               <li className="pb-2">
-                支持を表明したい選択肢と委任者に0以上の数字に入力してください。
-              </li>
-              <li className="pb-2">
-                得票が大きいほど支持していることになります。
-                <div className="pl-4 pt-1">
-                  (例:「A案に10点、B案に3点」はA案をより支持していることになる)
-                </div>
+                支持を表明したい選択肢と委任者にそれぞれ100点を満点とした数を振ってください。
               </li>
               <li className="pb-2">
                 なるべく同じ数字を避けてください。
@@ -112,31 +103,33 @@ const VotingInfo = ({ info, user, hash }: VotingInfoProp) => {
                   (例:「A案、B案ともに3点」を避ける)
                 </div>
               </li>
-              <li className="pb-2">
-                入力の数字に上限はありません。
-                <div className="pl-4 pt-1">(例:「A案に1000点」も可)</div>
-              </li>
             </ul>
+            <VotingForms
+              info={info}
+              initialVotes={getOptions()}
+              numPolicies={Object.keys(info.policies).length}
+              user={user}
+              id={info.id}
+            />
           </div>
-
-          <VotingForms
-            info={info}
-            initialVotes={getOptions()}
-            numPolicies={Object.keys(info.policies).length}
-            user={user}
-            id={info.id}
-          />
         </details>
-        <details className="p-2">
-          <summary className="p-3 bg-nord-0 bg-opacity-10 border border-nord-3 rounded w-3/5 text-sm">
+
+        <details>
+          <summary className="mt-3 p-3 bg-nord-0 bg-opacity-10 border border-nord-3 rounded text-sm">
             投票ルールの補足
           </summary>
-          {rule_details}
+          <div className="p-2">{rule_details}</div>
         </details>
-        <VotingResults info={info} hash={hash} />
+
+        <details>
+          <summary className="mt-3 p-3 bg-nord-0 bg-opacity-10 border border-nord-3 rounded text-sm">
+            投票結果データ
+          </summary>
+          <VotingResults info={info} hash={hash} />
+        </details>
+        {/*<Canvas />*/}
       </div>
-      {/*<Canvas />*/}
-    </>
+    </div>
   );
 };
 

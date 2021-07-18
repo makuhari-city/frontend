@@ -95,23 +95,18 @@ const VotingResults = ({ info, hash }: VotingResultsProps) => {
   };
 
   return (
-    <>
-      <details className="text-sm p-2 mt-4">
-        <summary className="p-3 bg-nord-0 bg-opacity-10 border border-nord-3 rounded w-3/5">
-          計算結果データ
-        </summary>
-        {renderResult(result as IResult, info)}
-        <pre className="bg-nord-0 bg-opacity-90 text-xs p-3 mt-3 rounded w-3/5">
-          {result}
-        </pre>
-        <button
-          className="mt-3 mb-8 p-2 rounded border bg-nord-9 font-bold text-nord-0 hover:bg-nord-10 bg-opacity-80 duration-500 ease-in"
-          onClick={updateResult}
-        >
-          Update
-        </button>
-      </details>
-    </>
+    <div>
+      {renderResult(result as IResult, info)}
+      <pre className="bg-nord-0 bg-opacity-90 text-xs p-3 mt-3 rounded w-3/5">
+        {result}
+      </pre>
+      <button
+        className="mt-3 mb-8 p-2 rounded border bg-nord-9 font-bold text-nord-0 hover:bg-nord-10 bg-opacity-80 duration-500 ease-in"
+        onClick={updateResult}
+      >
+        Update
+      </button>
+    </div>
   );
 };
 

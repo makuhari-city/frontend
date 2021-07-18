@@ -36,12 +36,19 @@ const Topic = (props: TopicProps) => {
   }
 
   if (info && user) {
-    return <VotingInfo info={info} user={user} hash={hash} />;
+    return (
+      <div className="lg:container mx-auto px-4 max-w-screen-md">
+        <TitleBar user={user} />
+        <div>
+          <VotingInfo info={info} user={user} hash={hash} />
+        </div>
+      </div>
+    );
   } else {
     return (
-      <div>
-        <TitleBar user={user}/>
-        <div className="container mx-auto max-w-screen-lg p-2">
+      <div className="lg:container mx-auto px-4 max-w-screen-md">
+        <TitleBar user={user} />
+        <div>
           Loading Topic (#{props.topicId!.substring(0, 5)}) information...
         </div>
       </div>

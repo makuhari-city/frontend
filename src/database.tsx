@@ -7,6 +7,11 @@ export interface ITopicHeader {
   title: string;
 }
 
+export interface IPolicy {
+	title: string,
+	desc: string
+}
+
 export interface ITopicData {
   id: string;
   title: string;
@@ -30,8 +35,9 @@ export const fetchHeader = async (id: string): Promise<ITopicHeader> => {
 
 export const fetchTopicData = async (id: string): Promise<ITopicData> => {
   const res = await fetch(`${baseUrl}/${prefix}/topic/${id}/`);
-  const info: any = await res.json();
-  return info as ITopicData;
+  const info: ITopicData = await res.json();
+  console.log(info);
+  return info;
 };
 
 export const fetchResult = async (hash: string): Promise<any | null> => {

@@ -1,0 +1,18 @@
+.option h1 {
+	font-weight: bold;
+	margin-top:1.2em;
+	margin-bottom: 1em;
+}
+
+.option a {
+	text-decoration:underline;
+}
+
+.option p {
+	margin-bottom: 0.8em;
+}
+
+.option ul {
+	margin-left:2em;
+	list-style-type:circle;
+}
